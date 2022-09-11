@@ -25,17 +25,17 @@ class Movie(db.Model):
     director_id = db.Column(db.Integer, db.ForeignKey("director.id"))
     director = db.relationship("Director")
 
-class MovieSchema(Schema):
-    id = fields.Int()
-    title = fields.Str()
-    description = fields.Str()
-    trailer = fields.Str()
-    year = fields.Int()
-    rating = fields.Float()
-    genre_id = fields.Int()
-    genre = fields.Str()
-    director_id = fields.Int()
-    director = fields.Str()
+# class MovieSchema(Schema):
+#     id = fields.Int()
+#     title = fields.Str()
+#     description = fields.Str()
+#     trailer = fields.Str()
+#     year = fields.Int()
+#     rating = fields.Float()
+#     genre_id = fields.Int()
+#     genre = fields.Str()
+#     director_id = fields.Int()
+#     director = fields.Str()
 
 
 class Director(db.Model):
@@ -54,6 +54,19 @@ class Genre(db.Model):
 class GenreSchema(Schema):
     id = fields.Int()
     name = fields.Str()
+
+class MovieSchema(Schema):
+    id = fields.Int()
+    title = fields.Str()
+    description = fields.Str()
+    trailer = fields.Str()
+    year = fields.Int()
+    rating = fields.Float()
+    #genre_id = fields.Int()
+    genre = fields.Pluck('GenreSchema','name')
+    #director_id = fields.Int()
+    director = fields.Pluck('DirectorSchema','name')
+
 
 movie_schema = MovieSchema()
 movies_schema = MovieSchema(many=True)
