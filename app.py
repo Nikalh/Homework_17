@@ -216,17 +216,7 @@ class GenreView(Resource):
 class GenreView(Resource):
     def get(self, idx):
         genre = Genre.query.get(idx)
-        try:
-
-            result = []
-            for movie in Movie.query.all():
-
-                if genre.id == movie.genre_id:
-                    result.append(movie)
-
-            return movies_schema.dump(result), 200
-        except Exception as e:
-            return e, 404
+        return genre_schema.dump(genre), 200
 
     # Обновляем данные жанра с определенным запросом
     def put(self, idx):
